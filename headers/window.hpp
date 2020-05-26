@@ -13,12 +13,13 @@ class window {
     int height;
     const char* title;
 public:
+    window() = delete;
+    window(int width, int height, const char* title);
     const char* getTitle();
     int getWidth();
     int getHeight();
     float clearR, clearG, clearB, clearA;
     GLFWwindow* ID;
-    window(int width, int height, const char* title);
     void renderFrame();
     void close();
     void setClearColor(float r, float g, float b, float a);

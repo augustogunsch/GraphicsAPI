@@ -16,10 +16,11 @@ private:
     glm::mat4 modelMatrix;
 public:
     unsigned int ID;
-    camera* myCamera = NULL;
-    program* myProgram = NULL;
+    camera* myCamera;
+    program* myProgram;
     model(program *program, camera *camera, glm::vec3 worldPosition, glm::vec3 rot, 
     glm::vec3 scale);
+    model() = delete;
     void genModelMatrix();
     glm::mat4 getModelMatrix();
     glm::vec3 getPosition();

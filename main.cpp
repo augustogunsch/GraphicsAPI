@@ -19,8 +19,8 @@ const int majorGLVersion = 4;
 const int minorGLVersion = 3;
 const int GLProfile = GLFW_OPENGL_CORE_PROFILE;
 
-void processInput(GLFWwindow* window);
-void cursorPosCallback(GLFWwindow* window, double x, double y);
+static void processInput(GLFWwindow* window);
+static void cursorPosCallback(GLFWwindow* window, double x, double y);
 
 window projectWindow = window(800.0f, 600.0f, "Minecraft 2.0");
 camera projectCamera = camera(glm::vec3(0.0f, 0.0f, -6.0f), glm::vec3(0.0f, 0.0f, 0.0f), 45.0f, &projectWindow);
@@ -38,8 +38,8 @@ int main() {
     "assets/textures/diamond_ore/specular.png", "assets/textures/diamond_ore/emission.png", 0.2f, 0.0f);
     myMaterial.attachProgram(&prog);
     
-    glm::vec3 lightPosition(0.0f);
-    light myLight;
+    glm::vec3 lightPosition(-2.0f, 3.0f, 0.0f);
+    light myLight(lightPosition);
     myLight.setAmbient(glm::vec3(0.2f, 0.2f, 0.2f));
     myLight.setDiffuse(glm::vec3(1.0f, 0.5f, 0.1f));
     myLight.setSpecular(glm::vec3(1.0f, 0.5f, 0.1f));
@@ -71,8 +71,7 @@ int main() {
         glm::vec3(0.0f, 5.0f, -5.0f)
     };
     
-        lightPosition = glm::vec3(-2.0f, 3.0f, 0.0f);
-        
+    
     // RENDER LOOP
     debug::queryErrors("Before render loop:");
     while(!glfwWindowShouldClose(projectWindow.ID)) {
@@ -127,9 +126,10 @@ int main() {
     return 0;
 }
 
-float camBaseSpeed = 6.0f;
-float camSpeed = camBaseSpeed;
-void processInput(GLFWwindow* window) {
+static void processInput(GLFWwindow* window) {
+    static float camBaseSpeed = 6.0f;
+    static float camSpeed = camBaseSpeed;
+    
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
@@ -162,10 +162,11 @@ void processInput(GLFWwindow* window) {
     }    
 }
 
-double previousX = projectWindow.getWidth()/2;
-double previousY = projectWindow.getHeight()/2;
-float sensibility = 12.0f;
-void cursorPosCallback(GLFWwindow* window, double x, double y) {
+static void cursorPosCallback(GLFWwindow* window, double x, double y) {
+    static double previousX = projectWindow.getWidth()/2;
+    static double previousY = projectWindow.getHeight()/2;
+    static float sensibility = 12.0f;
+    
     float deltaX = sensibility * (x - previousX);
     float deltaY = sensibility * (y - previousY);
     

@@ -24,9 +24,10 @@ private:
     glm::vec3 right;
     glm::vec3 relativeUp;
     void checkDirections();
-    window* myWindow = NULL;
+    window* myWindow;
 public:
     camera(glm::vec3 position, glm::vec3 rotation, float FOV, window* window);
+    camera() = delete;
     void setPosition(glm::vec3 position);
     void setRotation(glm::vec3 rotation);
     void setFOV(float FOV);

@@ -1,6 +1,6 @@
 #include <window.hpp>
 
-void framebufferSizeCallback(GLFWwindow* window, int width, int height);
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 window::window(int width, int height, const char* title) {
     window::width = width;
@@ -67,7 +67,7 @@ void window::clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 

@@ -7,10 +7,10 @@
 #include <iterator>
 
 class material {
-    texture* ambient = NULL;
-    texture* diffuse = NULL;
-    texture* specular = NULL;
-    texture* emission = NULL;
+    texture* ambient;
+    texture* diffuse;
+    texture* specular;
+    texture* emission;
     float shininess;
     float emissionStrength;
     std::vector <program*> myPrograms;
@@ -22,6 +22,7 @@ public:
     float emissionStrength);
     material(const char* ambientPath, const char* diffusePath, const char* specularPath, const char* emissionPath,
     float shininess, float emissionStrength);
+    material() = delete;
     void setAmbient(texture* ambient);
     void setDiffuse(texture* diffuse);
     void setSpecular(texture* specular);

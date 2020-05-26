@@ -14,7 +14,8 @@ class light {
     void updateProgram(program* program);
 public:
     light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
-    light();
+    light(glm::vec3 position);
+    light() = delete;
     void setPosition(glm::vec3 position);
     void setAmbient(glm::vec3 ambient);
     void setDiffuse(glm::vec3 diffuse);

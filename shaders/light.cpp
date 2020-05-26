@@ -7,7 +7,8 @@ light::light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3
     light::specular = specular;
 }
 
-light::light() : light::light(glm::vec3(0.0f), glm::vec3(0.1f), glm::vec3(1.0f), glm::vec3(0.5f)) {}
+light::light(glm::vec3 position) : 
+light::light(position, glm::vec3(0.1f), glm::vec3(1.0f), glm::vec3(0.5f)) {}
 
 void light::setPosition(glm::vec3 position) {
     light::position = position;

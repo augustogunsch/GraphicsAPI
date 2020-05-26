@@ -13,6 +13,7 @@ class program {
 public:
     unsigned int ID;
     program(const char* vertexPath, const char* fragmentPath);
+    program() = delete;
     void use();
     void setFloat(const char* name, float value) const;
     void setInt(const char* name, int value) const;
