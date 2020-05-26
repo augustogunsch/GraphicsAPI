@@ -27,7 +27,7 @@ void debug::queryErrors(const char* customMsg) {
     }
 }
 
-void debug::throwError(const char* customMsg = NULL) {
+void debug::throwError(const char* customMsg) {
     if(customMsg)
         std::cout << customMsg << "\n";
     
