@@ -31,6 +31,7 @@ void debug::throwError(const char* customMsg) {
     if(customMsg)
         std::cout << customMsg << "\n";
     
+    std::cout << "Press any key to continue." << std::endl;
     std::cin.get();
-    throw "Error";
+    exit(-1);
 }
