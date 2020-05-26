@@ -1,4 +1,9 @@
 #include <debug.hpp>
+
+#include <glad/glad.h>
+
+#include <iostream>
+
 void debug::queryErrors(const char* customMsg) {
     GLenum errorCode;
     const char* error;
@@ -18,6 +23,14 @@ void debug::queryErrors(const char* customMsg) {
         }
         
         std::cout << "ERROR HAPPENED! NAME: " << error << "; CODE: " << errorCode << "\n";
-        throw "GL ERROR EXCEPTION";
+        throwError();
     }
+}
+
+void debug::throwError(const char* customMsg = NULL) {
+    if(customMsg)
+        std::cout << customMsg << "\n";
+    
+    std::cin.get();
+    throw "Error";
 }
