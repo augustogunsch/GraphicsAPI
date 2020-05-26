@@ -162,9 +162,9 @@ static void processInput(GLFWwindow* window) {
     }    
 }
 
+static double previousX = projectWindow.getWidth()/2;
+static double previousY = projectWindow.getHeight()/2;
 static void cursorPosCallback(GLFWwindow* window, double x, double y) {
-    static double previousX = projectWindow.getWidth()/2;
-    static double previousY = projectWindow.getHeight()/2;
     static float sensibility = 12.0f;
     
     float deltaX = sensibility * (x - previousX);

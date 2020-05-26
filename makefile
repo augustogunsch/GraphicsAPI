@@ -1,5 +1,13 @@
+# Files:
+ROOT := main.o
+TEXTURES := textures/texture.o
+SHADERS := shaders/program.o shaders/light.o shaders/material.o
+MODELS := models/model.o models/cube.o
+WINDOW :=  window/window.o window/camera.o
+DEBUG := debug/debug.o
+FILES := $(ROOT) $(TEXTURES) $(SHADERS) $(MODELS) $(WINDOW) $(DEBUG)
+
 # Important fields:
-FILES = main.o textures/texture.o shaders/program.o shaders/material.o shaders/light.o models/model.o models/cube.o window/window.o window/camera.o debug/debug.o
 HEADERS = cube.hpp program.hpp texture.hpp window.hpp model.hpp camera.hpp globals.hpp debug.hpp material.hpp light.hpp
 INCLUDES := -I "libraries/includes" -I "headers"
 LIB := -L "libraries/lib"
@@ -17,8 +25,11 @@ GXXFLAGS := -g
 CACHE := build-cache
 OUTPUT-NAME := run.exe
 
+build : introductions binaries
+
 clean : introductions clear binaries
 
+# For loop is also platform dependant:
 clear:
 	$(ECHO)  Removing old objects...
 	@for %%i in ($(subst /,\, $(FILES))) do $(RM) %%i
@@ -39,8 +50,6 @@ binaries : $(FILES) $(addprefix, headers/,$(HEADERS))
 	@$(GXX) -o $@ -c $< $(LIB) $(INCLUDES) $(LIBRARIES) $(GXXFLAGS)
 	$(ECHO)  Object "$(@F)" compiled successfully.
 	$(ECHO).
-
-build : introductions binaries
 
 introductions:
 	$(ECHO)  ===============================
