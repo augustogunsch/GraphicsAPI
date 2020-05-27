@@ -1,11 +1,8 @@
 #include <light.hpp>
 
-light::light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular) {
-    light::position = position;
-    light::ambient = ambient;
-    light::diffuse = diffuse;
-    light::specular = specular;
-}
+light::light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular) 
+    : position(position), ambient(ambient), diffuse(diffuse), specular(specular)
+{}
 
 light::light(glm::vec3 position) : 
 light::light(position, glm::vec3(0.1f), glm::vec3(1.0f), glm::vec3(0.5f)) {}

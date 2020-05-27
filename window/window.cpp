@@ -2,11 +2,9 @@
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 
-window::window(int width, int height, const char* title) {
-    window::width = width;
-    window::height = height;
-    window::title = title;
-    
+window::window(int width, int height, const char* title) 
+    : width(width), height(height), title(title)
+{
     if(!glfwInit()) {
         std::cout << "GLFW INIT FAILURE";
         exit(-1);

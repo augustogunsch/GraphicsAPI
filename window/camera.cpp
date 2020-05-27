@@ -1,22 +1,17 @@
 #include <camera.hpp>
 
-camera::camera(glm::vec3 pos, glm::vec3 rot, float fov, window* window) {
-    setPosition(pos);
-    setRotation(rot);
-    setFOV(fov);
-    
-    myWindow = window;
-    viewMatrix = glm::mat4(1.0f);
-    projectionMatrix = glm::mat4(1.0f);
-}
+camera::camera(glm::vec3 position, glm::vec3 rotation, float fov, window& window) 
+    : position(position), rotation(rotation), FOV(fov), myWindow(window), viewMatrix(1.0f),
+    projectionMatrix(1.0f)
+{}
 
-void camera::setPosition(glm::vec3 pos) {
-    position = pos;
+void camera::setPosition(glm::vec3 position) {
+    camera::position = position;
     changedView = true;
 }
 
-void camera::setRotation(glm::vec3 rot) {
-    rotation = rot;
+void camera::setRotation(glm::vec3 rotation) {
+    camera::rotation = rotation;
     changedView = true;
     changedDirections = true;
 }
@@ -48,7 +43,8 @@ void camera::genViewMatrix() {
 }
 
 void camera::genProjectionMatrix() {
-    glm::mat4 perspective = glm::perspective(getFOV(), (float)myWindow->getWidth()/myWindow->getHeight(), 0.1f, 100.0f);
+    glm::mat4 perspective = glm::perspective(getFOV(), (float)myWindow.getWidth()/myWindow.getHeight(),
+     0.1f, 100.0f);
     projectionMatrix = perspective;
 }
 

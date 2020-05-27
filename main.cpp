@@ -23,19 +23,25 @@ static void processInput(GLFWwindow* window);
 static void cursorPosCallback(GLFWwindow* window, double x, double y);
 
 window projectWindow = window(800.0f, 600.0f, "Minecraft 2.0");
-camera projectCamera = camera(glm::vec3(0.0f, 0.0f, -6.0f), glm::vec3(0.0f, 0.0f, 0.0f), 45.0f, &projectWindow);
+camera projectCamera = camera(glm::vec3(0.0f, 0.0f, -6.0f), 
+glm::vec3(0.0f, 0.0f, 0.0f), 45.0f, 
+projectWindow);
 
 int main() {
     projectWindow.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     
-    program prog = program("assets/shaders/phong/vertex.glsl", "assets/shaders/phong/fragment.glsl");
+    program prog = program("assets/shaders/phong/vertex.glsl", 
+    "assets/shaders/phong/fragment.glsl");
     debug::queryErrors("After program creation:");
     
-    program progLightSrc = program("assets/shaders/light/vertex.glsl", "assets/shaders/light/fragment.glsl");
+    program progLightSrc = program("assets/shaders/light/vertex.glsl", 
+    "assets/shaders/light/fragment.glsl");
     debug::queryErrors("After program creation:");
     
-    material myMaterial("assets/textures/diamond_ore/ambient.png", "assets/textures/diamond_ore/diffuse.png",
-    "assets/textures/diamond_ore/specular.png", "assets/textures/diamond_ore/emission.png", 0.2f, 0.0f);
+    material myMaterial("assets/textures/diamond_ore/ambient.png", 
+    "assets/textures/diamond_ore/diffuse.png",
+    "assets/textures/diamond_ore/specular.png", 
+    "assets/textures/diamond_ore/emission.png", 0.2f, 0.0f);
     myMaterial.attachProgram(&prog);
     
     glm::vec3 lightPosition(-2.0f, 3.0f, 0.0f);
@@ -54,14 +60,16 @@ int main() {
     projectWindow.setCursorPosCallback(cursorPosCallback);
     debug::queryErrors("After cursor callback assignment:");
     
-    cube myCube = cube(&prog, &projectCamera, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),
+    cube myCube = cube(&prog, &projectCamera, glm::vec3(0.0f, 0.0f, 0.0f), 
+    glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(1.0f, 1.0f, 1.0f));
     debug::queryErrors("After cube creation:");
     cube myLightCube = cube(&progLightSrc, &projectCamera, lightPosition, 
     glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f));
     debug::queryErrors("After light cube creation:");
     
-    glm::vec3 cubePos[] = {
+    static const int cubePosSize = 7;
+    glm::vec3 cubePos[cubePosSize] = {
         glm::vec3(0.0f, 2.0f, 0.0f),
         glm::vec3(3.0f, 2.0f, 2.0f),
         glm::vec3(0.0f, 0.0f, 0.0f),
@@ -70,7 +78,6 @@ int main() {
         glm::vec3(3.0f, -2.0f, 1.0f),
         glm::vec3(0.0f, 5.0f, -5.0f)
     };
-    
     
     // RENDER LOOP
     debug::queryErrors("Before render loop:");
@@ -101,7 +108,7 @@ int main() {
         // prog.setVec3("lightColor", lightColor);
         
         myLightCube.render();
-        for(int i = 0; i < sizeof(cubePos)/sizeof(glm::vec3); i++) {
+        for(int i = 0; i < cubePosSize; i++) {
             // float rotation = (i+1) * 32 * time;
             float rotation = (i+1) * 32;
             

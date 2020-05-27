@@ -1,46 +1,34 @@
 #include <material.hpp>
 #include <debug.hpp>
 
-void material::init(texture* ambient, texture* diffuse, texture* specular, texture* emission, float shininess,
-float emissionStrength) {
-    material::ambient = ambient;
-    material::diffuse = diffuse;
-    material::specular = specular;
-    material::emission = emission;
-    material::shininess = 128*shininess;    
-    material::emissionStrength = emissionStrength;
-}
-
-material::material(texture* ambient, texture* diffuse, texture* specular, texture* emission, float shininess,
-float emissionStrength) {
-    init(ambient, diffuse, specular, emission, shininess, emissionStrength);
-}
+material::material(texture& ambient, texture& diffuse, texture& specular, texture& emission, float shininess,
+float emissionStrength) 
+    : ambient(ambient), diffuse(diffuse), specular(specular), emission(emission), 
+    shininess(shininess*128), emissionStrength(emissionStrength)
+{}
 
 material::material(const char* ambientPath, const char* diffusePath, const char* specularPath, 
-const char* emissionPath, float shininess, float emissionStrength) {
-    texture* amb = new texture(ambientPath, GL_TEXTURE0);
-    texture* dif = new texture(diffusePath, GL_TEXTURE1);
-    texture* spe = new texture(specularPath, GL_TEXTURE2);
-    texture* emi = new texture(emissionPath, GL_TEXTURE3);
-    init(amb, dif, spe, emi, shininess, emissionStrength);
-}
+const char* emissionPath, float shininess, float emissionStrength) 
+    : ambient(ambientPath), diffuse(diffusePath), specular(specularPath), emission(emissionPath),
+    shininess(shininess*128), emissionStrength(emissionStrength)
+{}
 
-void material::setAmbient(texture* ambient) {
+void material::setAmbient(texture& ambient) {
     material::ambient = ambient;
     updatePrograms();
 }
 
-void material::setDiffuse(texture* diffuse) {
+void material::setDiffuse(texture& diffuse) {
     material::diffuse = diffuse;
     updatePrograms();
 }
 
-void material::setSpecular(texture* specular) {
+void material::setSpecular(texture& specular) {
     material::specular = specular;
     updatePrograms();
 }
 
-void material::setEmission(texture* emission) {
+void material::setEmission(texture& emission) {
     material::emission = emission;
     updatePrograms();
 }
@@ -55,20 +43,20 @@ void material::setEmissionStrength(float emissionStrength) {
     updatePrograms();
 }
 
-texture* material::getAmbient() const {
-    return material::ambient;
+texture material::getAmbient() const {
+    return ambient;
 }
 
-texture* material::getDiffuse() const {
-    return material::diffuse;
+texture material::getDiffuse() const {
+    return diffuse;
 }
 
-texture* material::getSpecular() const {
-    return material::specular;
+texture material::getSpecular() const {
+    return specular;
 }
 
-texture* material::getEmission() const {
-    return material::emission;
+texture material::getEmission() const {
+    return emission;
 }
 
 float material::getShininess() const {
@@ -114,10 +102,10 @@ void material::updateProgram(program* program) {
     debug::queryErrors("After program's material units updated:");
     
     // Using textures
-    ambient->use(GL_TEXTURE0);
-    diffuse->use(GL_TEXTURE1);
-    specular->use(GL_TEXTURE2);
-    emission->use(GL_TEXTURE3);
+    ambient.use(GL_TEXTURE0);
+    diffuse.use(GL_TEXTURE1);
+    specular.use(GL_TEXTURE2);
+    emission.use(GL_TEXTURE3);
     debug::queryErrors("After program's material maps updated:");
     
     // Setting properties
