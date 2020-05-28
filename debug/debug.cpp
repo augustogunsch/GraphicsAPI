@@ -35,3 +35,11 @@ void debug::throwError(const char* customMsg) {
     std::cin.get();
     exit(-1);
 }
+
+void debug::warn(const char* customMsg) {
+    std::cout << customMsg << "\n";
+}
+
+void debug::log(const char* customMsg) {
+    std::cout << customMsg << "\n";
+}

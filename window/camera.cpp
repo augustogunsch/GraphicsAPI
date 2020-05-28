@@ -16,7 +16,7 @@ void camera::setRotation(glm::vec3 rotation) {
     changedDirections = true;
 }
 
-void camera::setFOV(float fov) {
+void camera::setFOV(const float& fov) {
     FOV = fov;
     changedProjection = true;
 }
@@ -38,14 +38,12 @@ glm::mat4 camera::getProjectionMatrix() {
 }
 
 void camera::genViewMatrix() {
-    glm::mat4 lookAt = glm::lookAt(getPosition(), getPosition() + getFront(), getUp());
-    viewMatrix = lookAt;
+    viewMatrix = glm::lookAt(getPosition(), getPosition() + getFront(), getUp());
 }
 
 void camera::genProjectionMatrix() {
-    glm::mat4 perspective = glm::perspective(getFOV(), (float)myWindow.getWidth()/myWindow.getHeight(),
+    projectionMatrix = glm::perspective(getFOV(), (float)myWindow.getWidth()/myWindow.getHeight(),
      0.1f, 100.0f);
-    projectionMatrix = perspective;
 }
 
 void camera::genDirections() {
@@ -95,7 +93,9 @@ glm::vec3 camera::getRelativeUp() {
 }
 
 void camera::moveFrontwards(float amount) {
-    setPosition(getPosition() + amount * getFront());
+    glm::vec3 front = getFront();
+    glm::vec3 position = getPosition();
+    setPosition(position + amount * front);
 }
 void camera::moveRightwards(float amount) {
     setPosition(getPosition() + amount * getRight());
@@ -104,14 +104,14 @@ void camera::moveUpwards(float amount) {
     setPosition(getPosition() + amount * getUp());
 }
 
-glm::vec3 camera::getPosition() {
+glm::vec3 camera::getPosition() const {
     return position;
 }
 
-glm::vec3 camera::getRotation() {
+glm::vec3 camera::getRotation() const {
     return rotation;
 }
 
-float camera::getFOV() {
+float camera::getFOV() const {
     return FOV;
 }

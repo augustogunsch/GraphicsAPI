@@ -1,14 +1,14 @@
 #include <material.hpp>
 #include <debug.hpp>
 
-material::material(texture& ambient, texture& diffuse, texture& specular, texture& emission, float shininess,
-float emissionStrength) 
+material::material(texture& ambient, texture& diffuse, texture& specular, texture& emission, 
+const float& shininess, const float& emissionStrength) 
     : ambient(ambient), diffuse(diffuse), specular(specular), emission(emission), 
     shininess(shininess*128), emissionStrength(emissionStrength)
 {}
 
 material::material(const char* ambientPath, const char* diffusePath, const char* specularPath, 
-const char* emissionPath, float shininess, float emissionStrength) 
+const char* emissionPath, const float& shininess, const float& emissionStrength) 
     : ambient(ambientPath), diffuse(diffusePath), specular(specularPath), emission(emissionPath),
     shininess(shininess*128), emissionStrength(emissionStrength)
 {}
@@ -33,12 +33,12 @@ void material::setEmission(texture& emission) {
     updatePrograms();
 }
 
-void material::setShininess(float shininess) {
+void material::setShininess(float& shininess) {
     material::shininess = 128*shininess;
     updatePrograms();
 }
 
-void material::setEmissionStrength(float emissionStrength) {
+void material::setEmissionStrength(float& emissionStrength) {
     material::emissionStrength = emissionStrength;
     updatePrograms();
 }
@@ -67,10 +67,10 @@ float material::getEmissionStrength() const {
     return material::emissionStrength;
 }
 
-void material::dettachProgram(program* prog) {
+void material::dettachProgram(const program& prog) {
     std::vector<program*>::iterator it;
     for(it = myPrograms.begin(); it != myPrograms.end(); ++it) {
-        if(*it == prog)
+        if(*it == &prog)
         {
             myPrograms.erase(it);
             break;
@@ -78,9 +78,9 @@ void material::dettachProgram(program* prog) {
     }
 }
 
-void material::attachProgram(program* program) {
-    updateProgram(program);
-    myPrograms.push_back(program);
+void material::attachProgram(program& program) {
+    updateProgram(&program);
+    myPrograms.push_back(&program);
 }
 
 void material::updatePrograms() {

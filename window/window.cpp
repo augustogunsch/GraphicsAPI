@@ -48,7 +48,7 @@ void window::renderFrame() {
     genDeltaTime();
 }
 
-void window::use() {
+void window::use() const {
     glfwMakeContextCurrent(ID);
 }
 
@@ -79,15 +79,15 @@ void window::genDeltaTime() {
     previousTime = currentTime;
 }
 
-float window::getDeltaTime() {
+float window::getDeltaTime() const {
     return deltaTime;
 }
 
-int window::getWidth() {
+int window::getWidth() const {
     return width;
 }
 
-int window::getHeight() {
+int window::getHeight() const {
     return height;
 }
 
@@ -97,6 +97,19 @@ void window::resize(int width, int height) {
     window::height = height;
 }
 
-const char* window::getTitle() {
+const char* window::getTitle() const {
     return title;
+}
+
+bool window::getShouldClose() const {
+    return glfwWindowShouldClose(ID);
+}
+
+void window::setShouldClose(bool shouldClose) {
+    glfwSetWindowShouldClose(ID, shouldClose);
+}
+
+bool window::getKeyPress(unsigned int key) const {
+    bool pressed = glfwGetKey(ID, key) == GLFW_PRESS;
+    return pressed;
 }

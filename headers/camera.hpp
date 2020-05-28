@@ -24,13 +24,13 @@ private:
     glm::vec3 right;
     glm::vec3 relativeUp;
     void checkDirections();
-    window myWindow;
+    window& myWindow;
 public:
     camera(glm::vec3 position, glm::vec3 rotation, float FOV, window& window);
     camera() = delete;
     void setPosition(glm::vec3 position);
     void setRotation(glm::vec3 rotation);
-    void setFOV(float FOV);
+    void setFOV(const float& FOV);
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
     glm::vec3 getFront();
@@ -40,7 +40,7 @@ public:
     void moveFrontwards(float amount);
     void moveRightwards(float amount);
     void moveUpwards(float amount);
-    glm::vec3 getPosition();
-    glm::vec3 getRotation();
-    float getFOV();
+    glm::vec3 getPosition() const;
+    glm::vec3 getRotation() const;
+    float getFOV() const;
 };

@@ -4,6 +4,7 @@
 #include <iostream>
 
 class texture {
+protected:
     unsigned int ID;
     unsigned int unit;
 public:

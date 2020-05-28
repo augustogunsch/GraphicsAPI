@@ -9,9 +9,11 @@
 #include <GLM/gtc/type_ptr.hpp>
 
 class program {
+private:
     unsigned int createShader(const char* path, const char* name, GLenum type);
-public:
+protected:
     unsigned int ID;
+public:
     program(const char* vertexPath, const char* fragmentPath);
     program() = delete;
     void use();

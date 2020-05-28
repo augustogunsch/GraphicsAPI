@@ -12,22 +12,23 @@ private:
     glm::vec3 position;
     glm::vec3 rotation;
     glm::vec3 scale;
-    bool changedModelMatrix;
+    bool changedModelMatrix = true;
     glm::mat4 modelMatrix;
-public:
+protected:
     unsigned int ID;
-    camera* myCamera;
-    program* myProgram;
-    model(program *program, camera *camera, glm::vec3 worldPosition, glm::vec3 rot, 
-    glm::vec3 scale);
+    camera& myCamera;
+    program& myProgram;
+public:
+    model(program& program, camera& camera, const glm::vec3& worldPosition, 
+    const glm::vec3& rotation, const glm::vec3& scale);
     model() = delete;
     void genModelMatrix();
     glm::mat4 getModelMatrix();
-    glm::vec3 getPosition();
-    glm::vec3 getRotation();
-    void setPosition(glm::vec3 pos);
-    void setRotation(glm::vec3 rot);
-    void setScale(glm::vec3 scal);
+    glm::vec3 getPosition() const;
+    glm::vec3 getRotation() const;
+    void setPosition(const glm::vec3& pos);
+    void setRotation(const glm::vec3& rot);
+    void setScale(const glm::vec3& scal);
     virtual void render() = 0;
     virtual void use() = 0;
 };

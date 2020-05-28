@@ -1,7 +1,7 @@
 #include <cube.hpp>
 #include <debug.hpp>
 
-cube::cube(program *program, camera *camera, glm::vec3 worldPosition, glm::vec3 rotation,
+cube::cube(program& program, camera& camera, glm::vec3 worldPosition, glm::vec3 rotation, 
 glm::vec3 scale) : 
 model(program, camera, worldPosition, rotation, scale) {
   float vertexData[] = {
@@ -76,17 +76,17 @@ void cube::use() {
 }
 
 void cube::render() {
-  myProgram->use();
+  myProgram.use();
   debug::queryErrors("After prog use:");
 
   glm::mat4 modelM = getModelMatrix();
-  glm::mat4 viewM = myCamera->getViewMatrix();
-  glm::mat4 projectionM = myCamera->getProjectionMatrix();
+  glm::mat4 viewM = myCamera.getViewMatrix();
+  glm::mat4 projectionM = myCamera.getProjectionMatrix();
   debug::queryErrors("After matrices query:");
 
-  myProgram->setMat4("modelM", modelM);
-  myProgram->setMat4("viewM", viewM);
-  myProgram->setMat4("projectionM", projectionM);
+  myProgram.setMat4("modelM", modelM);
+  myProgram.setMat4("viewM", viewM);
+  myProgram.setMat4("projectionM", projectionM);
   debug::queryErrors("After matrices assignment:");
   
   use();

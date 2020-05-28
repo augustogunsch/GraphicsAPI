@@ -19,14 +19,14 @@ const int majorGLVersion = 4;
 const int minorGLVersion = 3;
 const int GLProfile = GLFW_OPENGL_CORE_PROFILE;
 
-static void processInput(GLFWwindow* window);
+static void processInput(window& window, camera& camera);
 static void cursorPosCallback(GLFWwindow* window, double x, double y);
+
 
 window projectWindow = window(800.0f, 600.0f, "Minecraft 2.0");
 camera projectCamera = camera(glm::vec3(0.0f, 0.0f, -6.0f), 
 glm::vec3(0.0f, 0.0f, 0.0f), 45.0f, 
 projectWindow);
-
 int main() {
     projectWindow.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     
@@ -42,7 +42,7 @@ int main() {
     "assets/textures/diamond_ore/diffuse.png",
     "assets/textures/diamond_ore/specular.png", 
     "assets/textures/diamond_ore/emission.png", 0.2f, 0.0f);
-    myMaterial.attachProgram(&prog);
+    myMaterial.attachProgram(prog);
     
     glm::vec3 lightPosition(-2.0f, 3.0f, 0.0f);
     light myLight(lightPosition);
@@ -60,11 +60,11 @@ int main() {
     projectWindow.setCursorPosCallback(cursorPosCallback);
     debug::queryErrors("After cursor callback assignment:");
     
-    cube myCube = cube(&prog, &projectCamera, glm::vec3(0.0f, 0.0f, 0.0f), 
+    cube myCube = cube(prog, projectCamera, glm::vec3(0.0f, 0.0f, 0.0f), 
     glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(1.0f, 1.0f, 1.0f));
     debug::queryErrors("After cube creation:");
-    cube myLightCube = cube(&progLightSrc, &projectCamera, lightPosition, 
+    cube myLightCube = cube(progLightSrc, projectCamera, lightPosition, 
     glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f));
     debug::queryErrors("After light cube creation:");
     
@@ -81,7 +81,7 @@ int main() {
     
     // RENDER LOOP
     debug::queryErrors("Before render loop:");
-    while(!glfwWindowShouldClose(projectWindow.ID)) {
+    while(!projectWindow.getShouldClose()) {
         projectWindow.clear();
         
         prog.use();
@@ -123,7 +123,7 @@ int main() {
         projectWindow.renderFrame();
         debug::queryErrors("During frame rendering:");
         
-        processInput(projectWindow.ID);
+        processInput(projectWindow, projectCamera);
         debug::queryErrors("During input processing:");
         
         debug::queryErrors("During render loop:");
@@ -133,35 +133,35 @@ int main() {
     return 0;
 }
 
-static void processInput(GLFWwindow* window) {
+static void processInput(window& window, camera& camera) {
     static float camBaseSpeed = 6.0f;
     static float camSpeed = camBaseSpeed;
     
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
+    if(window.getKeyPress(GLFW_KEY_ESCAPE)) {
+        window.setShouldClose(true);
     }
     
-    float translation = projectWindow.getDeltaTime() * camSpeed;
-    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        projectCamera.moveFrontwards(translation);
+    float translation = window.getDeltaTime() * camSpeed;
+    if(window.getKeyPress(GLFW_KEY_W)) {
+        camera.moveFrontwards(translation);
     }
-    if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        projectCamera.moveRightwards(-translation);
+    if(window.getKeyPress(GLFW_KEY_A)) {
+        camera.moveRightwards(-translation);
     }
-    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        projectCamera.moveFrontwards(-translation);
+    if(window.getKeyPress(GLFW_KEY_S)) {
+        camera.moveFrontwards(-translation);
     }
-    if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        projectCamera.moveRightwards(translation);
+    if(window.getKeyPress(GLFW_KEY_D)) {
+        camera.moveRightwards(translation);
     }
-    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        projectCamera.moveUpwards(translation);
+    if(window.getKeyPress(GLFW_KEY_SPACE)) {
+        camera.moveUpwards(translation);
     }
-    if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-        projectCamera.moveUpwards(-translation);
+    if(window.getKeyPress(GLFW_KEY_LEFT_SHIFT)) {
+        camera.moveUpwards(-translation);
     }
     
-    if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+    if(window.getKeyPress(GLFW_KEY_LEFT_CONTROL)) {
         camSpeed = 2 * camBaseSpeed;
     }
     else {
