@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include <GLM/glm.hpp>
 #include <program.hpp>
 #include <list>
 #include <iterator>

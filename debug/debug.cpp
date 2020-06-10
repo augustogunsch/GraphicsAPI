@@ -1,6 +1,6 @@
 #include <debug.hpp>
 
-#include <glad/glad.h>
+#include <GLAD/glad.h>
 
 #include <iostream>
 

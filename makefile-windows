@@ -22,7 +22,6 @@ ECHO := @echo
 # Other fields:
 GXX := g++
 GXXFLAGS := -g
-CACHE := build-cache
 OUTPUT-NAME := run.exe
 
 build : introductions binaries
@@ -31,9 +30,8 @@ clean : introductions clear binaries
 
 # For loop is also platform dependant:
 clear:
-	$(ECHO)  Removing old objects...
-	@for %%i in ($(subst /,\, $(FILES))) do $(RM) %%i
 	$(ECHO)  Removing old binaries...
+	@for %%i in ($(subst /,\, $(FILES))) do $(RM) %%i
 	@-$(RM)  $(OUTPUT-NAME)
 	$(ECHO)  Cleaning done.
 	$(ECHO).
