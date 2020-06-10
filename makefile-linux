@@ -14,7 +14,6 @@ LIB := -L "libraries/lib"
 LIBRARIES := -lglfw3_linux -lglad_linux -ldl -lpthread
 
 # OS-Dependant commands:
-# Currently set up for Windows Shell
 RM := rm 
 DIR := cd 
 ECHO := @echo
@@ -28,7 +27,6 @@ build : introductions binaries
 
 clean : introductions clear binaries
 
-# For loop is also platform dependant:
 clear:
 	$(ECHO)  Removing old binaries...
 	@for i in $(FILES); do $(RM) $$i; done;

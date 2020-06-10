@@ -14,7 +14,6 @@ LIB := -L "libraries/lib"
 LIBRARIES := -lglfw3 -lglad -lopengl32 -lgdi32 -luser32 -lkernel32
 
 # OS-Dependant commands:
-# Currently set up for Windows Shell
 RM := del /q
 DIR := cd
 ECHO := @echo
@@ -28,7 +27,6 @@ build : introductions binaries
 
 clean : introductions clear binaries
 
-# For loop is also platform dependant:
 clear:
 	$(ECHO)  Removing old binaries...
 	@for %%i in ($(subst /,\, $(FILES))) do $(RM) %%i
