@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 project(GraphicsAPI VERSION 1.0)
 
+# database for YCM:
+set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+
 set(OpenGL_PROFILE GLFW_OPENGL_CORE_PROFILE)
 set(OpenGL_VERSION_MAJOR 4) 
 set(OpenGL_VERSION_MINOR 3) 
