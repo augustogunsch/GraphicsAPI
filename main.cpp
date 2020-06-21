@@ -11,14 +11,7 @@
 
 #include <iostream>
 
-#include <globals.hpp>
-
 #include <GLM/gtx/string_cast.hpp>
-//Global variables definition
-const int majorGLVersion = 4;
-const int minorGLVersion = 3;
-const int GLProfile = GLFW_OPENGL_CORE_PROFILE;
-
 static void processInput(window& window, camera& camera);
 static void cursorPosCallback(GLFWwindow* window, double x, double y);
 

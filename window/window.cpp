@@ -1,4 +1,5 @@
 #include <window.hpp>
+#include <OpenGLVersion.hpp>
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -11,9 +12,9 @@ window::window(int width, int height, const char* title)
     }
     
     previousTime = glfwGetTime();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorGLVersion);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorGLVersion);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLProfile);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GL_VERSION_MAJOR);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GL_VERSION_MINOR);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GL_PROFILE);
     
     ID = glfwCreateWindow(width, height, title, NULL, NULL);
     if(!ID) {
