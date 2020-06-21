@@ -50,7 +50,7 @@ elseif(WIN32)
 	set_target_properties(
 		executable
 		PROPERTIES
-		OUTPUT_NAME "run.exe"
+		OUTPUT_NAME "run"
 		)
 endif()
 
