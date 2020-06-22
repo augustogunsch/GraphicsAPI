@@ -2,12 +2,22 @@ cmake_minimum_required(VERSION 3.10)
 
 project(GraphicsAPI VERSION 1.0)
 
+if(NOT CMAKE_BUILD_TYPE)
+	message(STATUS "Setting build type Debug as none was specified")
+	set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Default build type." FORCE)
+endif()
+
 # database for YCM:
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 
 set(OpenGL_PROFILE GLFW_OPENGL_CORE_PROFILE)
 set(OpenGL_VERSION_MAJOR 4) 
 set(OpenGL_VERSION_MINOR 3) 
+
+set(CMAKE_CXX_FLAGS_DEBUG_INIT "-OgWall")
+set(CMAKE_C_FLAGS_DEBUG_INIT "-OgWall")
+set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3Wall")
+set(CMAKE_C_FLAGS_RELEASE_INIT "-O3Wall")
 
 configure_file(
 	"${PROJECT_SOURCE_DIR}/headers/OpenGLVersion.hpp.in"
@@ -38,7 +48,7 @@ if(UNIX AND NOT APPLE)
 
 	set_target_properties(
 		executable
-		PROPERTIES
+	       	PROPERTIES
 		OUTPUT_NAME "run.out"
 		)
 elseif(WIN32)
