@@ -3,6 +3,8 @@
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 
+static void glfwErrorCallback(int error, const char* description);
+
 window::window(int width, int height, const char* title) 
     : width(width), height(height), title(title)
 {
@@ -11,6 +13,8 @@ window::window(int width, int height, const char* title)
         exit(-1);
     }
     
+    glfwSetErrorCallback(glfwErrorCallback);
+
     previousTime = glfwGetTime();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GL_VERSION_MAJOR);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GL_VERSION_MINOR);
@@ -113,4 +117,8 @@ void window::setShouldClose(bool shouldClose) {
 bool window::getKeyPress(unsigned int key) const {
     bool pressed = glfwGetKey(ID, key) == GLFW_PRESS;
     return pressed;
+}
+
+static void glfwErrorCallback(int error, const char* description) {
+    std::cout << "GLFW ERROR: " << error << " - " << description << std::endl;
 }
